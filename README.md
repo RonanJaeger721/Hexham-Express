@@ -26,4 +26,4 @@ The supplied logo identity is preserved with its original background. Photos are
 
 ## Creative experience
 
-The home page uses full photographic scenes, the supplied company film in the hero, interactive supply/quantity/logistics tabs, and a scroll-driven CSS 3D brick assembly textured from the supplied brick photo. The arrangement is illustrative and does not represent a specification or engineering design. No additional runtime animation dependency is required. Scroll scenes stop updating outside view and respect reduced-motion preferences.
+The site uses restrained typography, real supplied photographs, a slow hero crossfade and gentle scroll reveals. The home page keeps product discovery, logistics and enquiries clear. The supplied company film remains available on the logistics page. Motion respects reduced-motion preferences.

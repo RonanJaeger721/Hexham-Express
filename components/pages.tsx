@@ -123,9 +123,6 @@ export function Logistics() {
       />
       <Journey />
       <section className="logistics-notes section" data-reveal>
-        <div className="ambient-photo">
-          <Picture name="blue-truck" alt="Hexham crane truck" />
-        </div>
         <h2>
           THE DETAILS
           <br />
@@ -174,9 +171,6 @@ export function Bricks() {
         <ProductGrid />
       </section>
       <section className="order-note section" data-reveal>
-        <div className="ambient-photo">
-          <Picture name="brick-stacks" alt="Hexham brick stock" />
-        </div>
         <span className="eyebrow">BEFORE YOU PLACE AN ORDER</span>
         <h2>
           A CLEAR BRIEF.
@@ -219,9 +213,6 @@ export function About() {
         eyebrow="THE HEXHAM APPROACH"
       />
       <section id="discover" className="section about-statement">
-        <div className="ambient-photo">
-          <Picture name="yard-rows" alt="Brick yard" />
-        </div>
         <p className="eyebrow" data-reveal>
           UNDERSTAND. PREPARE. MOVE.
         </p>
@@ -364,9 +355,6 @@ export function Contact() {
   return (
     <>
       <section className="contact section">
-        <div className="ambient-photo">
-          <Picture name="loaded-truck" alt="Loaded Hexham truck" />
-        </div>
         <div className="contact-intro" data-reveal>
           <p className="eyebrow">DIRECT ENQUIRIES / HEXHAM BRICKS</p>
           <h1>
