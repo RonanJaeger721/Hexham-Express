@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { HomeExperience } from "./experience";
 import { ArrowUpRight, Check, Phone, MessageCircle } from "lucide-react";
 import {
   Button,
@@ -15,161 +16,7 @@ import {
 } from "./site";
 import { phone, products, whatsapp } from "@/lib/data";
 export function Home() {
-  return (
-    <>
-      <Hero
-        home
-        title={
-          <>
-            BUILT TO SUPPLY.
-            <br />
-            READY TO MOVE.
-          </>
-        }
-        copy="Brick supply backed by the equipment and logistics to keep construction moving."
-      />
-      <section id="discover" className="opening section">
-        <SectionTitle
-          label="WHAT WE DO"
-          title={
-            <>
-              MORE THAN
-              <br />
-              JUST A STACK
-              <br />
-              OF BRICKS.
-            </>
-          }
-          copy="Hexham Bricks helps builders, contractors and property owners source bricks while supporting the movement of larger orders through practical loading and transport capability."
-        />
-        <div className="opening-foot" data-reveal>
-          <div className="mini-media">
-            <Picture name="bricks-detail" alt="Building bricks" />
-            <span>
-              Material.
-              <br />
-              Movement.
-              <br />
-              Momentum.
-            </span>
-          </div>
-          <Link className="text-link" href="/about">
-            MEET HEXHAM <ArrowUpRight size={18} />
-          </Link>
-        </div>
-      </section>
-      <section className="capabilities section">
-        <div className="capability large" data-reveal>
-          <Picture name="brick-stacks" alt="Stacks of Hexham bricks" />
-          <div>
-            <span>01 / THE MATERIAL</span>
-            <h3>BRICK SUPPLY</h3>
-            <p>
-              Brick supply for residential, commercial and general construction
-              requirements.
-            </p>
-            <Link
-              href="/bricks"
-              aria-label="Explore brick supply"
-              className="circle-arrow"
-            >
-              <ArrowUpRight />
-            </Link>
-          </div>
-        </div>
-        <div className="capability narrow" data-reveal>
-          <Picture name="stock-yard" alt="Bulk quantities of bricks" />
-          <div>
-            <span>02 / THE QUANTITY</span>
-            <h3>BULK ORDERS</h3>
-            <p>
-              Talk to Hexham about larger project quantities and recurring
-              needs.
-            </p>
-            <Link
-              href="/bricks/bulk-brick-orders"
-              aria-label="Explore bulk orders"
-              className="circle-arrow"
-            >
-              <ArrowUpRight />
-            </Link>
-          </div>
-        </div>
-        <div className="capability narrow" data-reveal>
-          <Picture
-            name="crane-loading"
-            alt="Crane equipment and brick loading"
-          />
-          <div>
-            <span>03 / THE MOVEMENT</span>
-            <h3>LOGISTICS & HANDLING</h3>
-            <p>Transport arrangements available on enquiry.</p>
-            <Link
-              href="/logistics"
-              aria-label="Explore logistics"
-              className="circle-arrow"
-            >
-              <ArrowUpRight />
-            </Link>
-          </div>
-        </div>
-      </section>
-      <section className="section">
-        <SectionTitle
-          label="START WITH THE RIGHT MATERIAL"
-          title="BRICKS FOR THE BUILD."
-          copy="From the first requirement to project quantities. Explore supply options and enquire about current availability."
-        />
-        <ProductGrid compact />
-        <div className="section-end">
-          <Button href="/bricks" secondary>
-            Explore all supply options
-          </Button>
-        </div>
-      </section>
-      <section className="equipment section">
-        <SectionTitle
-          label="SUPPLY WITH THE MEANS TO MOVE IT"
-          title={
-            <>
-              REAL STOCK.
-              <br />
-              REAL EQUIPMENT.
-              <br />
-              REAL PROJECT SUPPORT.
-            </>
-          }
-          copy="Behind every order is a practical conversation about quantities, access, loading and movement."
-        />
-        <div className="photo-composition" data-reveal>
-          <Picture
-            name="loaded-truck"
-            alt="Orange Hexham truck loaded with bricks"
-            className="main-photo"
-          />
-          <Picture
-            name="brick-stacks"
-            alt="Building brick stock"
-            className="floating-photo brick-photo"
-          />
-          <Picture
-            name="crane-loading"
-            alt="Crane-equipped loaded truck"
-            className="floating-photo crane-photo"
-          />
-          <div className="photo-caption">
-            FROM YARD TO PROJECT{" "}
-            <Link href="/logistics" aria-label="Discover logistics">
-              <ArrowUpRight />
-            </Link>
-          </div>
-        </div>
-      </section>
-      <Video />
-      <FAQ />
-      <EnquiryBand />
-    </>
-  );
+  return <HomeExperience />;
 }
 const steps = [
   ["ORDER", "Tell us what your project requires.", "stock-yard"],
@@ -276,6 +123,9 @@ export function Logistics() {
       />
       <Journey />
       <section className="logistics-notes section" data-reveal>
+        <div className="ambient-photo">
+          <Picture name="blue-truck" alt="Hexham crane truck" />
+        </div>
         <h2>
           THE DETAILS
           <br />
@@ -324,6 +174,9 @@ export function Bricks() {
         <ProductGrid />
       </section>
       <section className="order-note section" data-reveal>
+        <div className="ambient-photo">
+          <Picture name="brick-stacks" alt="Hexham brick stock" />
+        </div>
         <span className="eyebrow">BEFORE YOU PLACE AN ORDER</span>
         <h2>
           A CLEAR BRIEF.
@@ -366,6 +219,9 @@ export function About() {
         eyebrow="THE HEXHAM APPROACH"
       />
       <section id="discover" className="section about-statement">
+        <div className="ambient-photo">
+          <Picture name="yard-rows" alt="Brick yard" />
+        </div>
         <p className="eyebrow" data-reveal>
           UNDERSTAND. PREPARE. MOVE.
         </p>
@@ -483,6 +339,7 @@ export function Contact() {
     e.preventDefault();
     setBusy(true);
     setStatus("");
+    setUrl("");
     const data = Object.fromEntries(new FormData(e.currentTarget));
     try {
       const res = await fetch("/api/enquiry", {
@@ -507,6 +364,9 @@ export function Contact() {
   return (
     <>
       <section className="contact section">
+        <div className="ambient-photo">
+          <Picture name="loaded-truck" alt="Loaded Hexham truck" />
+        </div>
         <div className="contact-intro" data-reveal>
           <p className="eyebrow">DIRECT ENQUIRIES / HEXHAM BRICKS</p>
           <h1>

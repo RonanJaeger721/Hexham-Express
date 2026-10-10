@@ -23,3 +23,7 @@ Product groups are enquiry categories. Prices, technical specifications, stock, 
 ## Media
 
 The supplied logo identity is preserved with its original background. Photos are compressed into responsive WebP pairs; some lower-edge phone/date watermarks are cropped naturally. The original company MP4 is preserved.
+
+## Creative experience
+
+The home page uses full photographic scenes, the supplied company film in the hero, interactive supply/quantity/logistics tabs, and a scroll-driven CSS 3D brick assembly textured from the supplied brick photo. The arrangement is illustrative and does not represent a specification or engineering design. No additional runtime animation dependency is required. Scroll scenes stop updating outside view and respect reduced-motion preferences.

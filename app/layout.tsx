@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./experience.css";
 import { Shell } from "@/components/site";
 export const metadata: Metadata = {
   title: {

@@ -218,6 +218,15 @@ export function Hero({
     "wide-yard",
     "blue-truck",
   ];
+  const heroRef = useRef<HTMLElement>(null);
+  const filmRef = useRef<HTMLVideoElement>(null);
+  const labels = [
+    "The load",
+    "Hexham in motion",
+    "The material",
+    "The yard",
+    "The equipment",
+  ];
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   useEffect(() => {
@@ -231,9 +240,52 @@ export function Hero({
       if (!document.hidden) setIndex((i) => (i + 1) % slides.length);
     }, 6500);
     return () => clearInterval(t);
-  }, [home, paused]);
+  }, [home, paused, index]);
+  useEffect(() => {
+    const film = filmRef.current;
+    if (!film || !home) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (
+          entry.isIntersecting &&
+          index === 1 &&
+          !paused &&
+          !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        )
+          film.play().catch(() => {});
+        else film.pause();
+      },
+      { threshold: 0.1 },
+    );
+    observer.observe(film);
+    return () => {
+      observer.disconnect();
+      film.pause();
+    };
+  }, [home, index, paused]);
   return (
     <section
+      ref={heroRef}
+      onPointerMove={(e) => {
+        if (
+          e.pointerType === "mouse" &&
+          !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ) {
+          const rect = e.currentTarget.getBoundingClientRect();
+          e.currentTarget.style.setProperty(
+            "--pointer-x",
+            `${((e.clientX - rect.left) / rect.width - 0.5) * 12}px`,
+          );
+          e.currentTarget.style.setProperty(
+            "--pointer-y",
+            `${((e.clientY - rect.top) / rect.height - 0.5) * 8}px`,
+          );
+        }
+      }}
+      onPointerLeave={() => {
+        heroRef.current?.style.setProperty("--pointer-x", "0px");
+        heroRef.current?.style.setProperty("--pointer-y", "0px");
+      }}
       className={`hero ${home ? "home-hero" : "inner-hero"} ${paused ? "paused" : ""}`}
     >
       <div className="hero-media">
@@ -246,8 +298,35 @@ export function Hero({
             priority={i === 0}
           />
         ))}
+        {home && (
+          <video
+            ref={filmRef}
+            className={`hero-film ${index === 1 ? "current" : ""}`}
+            muted
+            playsInline
+            loop
+            preload="none"
+            poster="/media/crane-loading.webp"
+            aria-hidden="true"
+          >
+            <source src="/media/hexham-at-work.mp4" type="video/mp4" />
+          </video>
+        )}
       </div>
       <div className="hero-shade" />
+      <div className="hero-viewfinder" aria-hidden="true">
+        <i />
+        <i />
+        <i />
+        <i />
+      </div>
+      {home && (
+        <div className="hero-editorial-label" aria-hidden="true">
+          MATERIAL
+          <br />
+          <span>IN MOTION.</span>
+        </div>
+      )}
       <div className="hero-top">
         <Link href="/" aria-label="Home">
           <img src="/brand/hexham-logo-light.png" alt="Hexham Bricks" />
@@ -270,9 +349,34 @@ export function Hero({
           </Button>
         </div>
       </div>
+      {home && (
+        <div
+          className="scene-picker"
+          role="group"
+          aria-label="Choose a hero scene"
+        >
+          {slides.map((name, i) => (
+            <button
+              key={name}
+              className={index === i ? "active" : ""}
+              aria-pressed={index === i}
+              aria-label={`Show ${labels[i].toLowerCase()}`}
+              onClick={() => setIndex(i)}
+            >
+              <Picture name={name} alt="" />
+              <span className="scene-index">0{i + 1}</span>
+              <span className="scene-name">{labels[i]}</span>
+              <i className="hero-scene-progress" />
+            </button>
+          ))}
+        </div>
+      )}
       <div className="hero-bottom">
         <div className="film-meta">
-          <span className="red-dot" /> REAL STOCK. REAL EQUIPMENT.
+          <span className="red-dot" />{" "}
+          {home
+            ? labels[index].toUpperCase() + " / REAL HEXHAM MEDIA"
+            : "REAL STOCK. REAL EQUIPMENT."}
         </div>
         <a className="scroll-cue" href="#discover" aria-label="Explore below">
           <ArrowDown size={23} />
